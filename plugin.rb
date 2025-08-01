@@ -8,8 +8,13 @@
 after_initialize do
   module DisableSuspiciousRequestCheck
     def respond_to_suspicious_request
-      Rails.logger.info("[DisableSuspiciousCheck] Suspicious request check disabled - allowing registration to proceed")
+      Rails.logger.info("[DisableSuspiciousCheck] respond_to_suspicious_request called but doing nothing")
       return
+    end
+    
+    def suspicious?(params)
+      Rails.logger.info("[DisableSuspiciousCheck] suspicious? called - always returning false")
+      return false
     end
   end
 
@@ -17,5 +22,5 @@ after_initialize do
   
   UsersController.prepend(DisableSuspiciousRequestCheck)
   
-  Rails.logger.info("[DisableSuspiciousCheck] Plugin loaded successfully")
+  Rails.logger.info("[DisableSuspiciousCheck] Plugin loaded successfully - both methods overridden")
 end
